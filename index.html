@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HellenicDev</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: white;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .game-list {
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .game-card {
+      background: #222;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+
+    .game-card a {
+      text-decoration: none;
+      color: #00aaff;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Make sure logo.png is in the same folder as this HTML file -->
+  <img src="logo.png" alt="HellenicDev Logo" class="logo">
+  <h4> Hello everyone! My name is Panos, aka HellenicDev. I enjoy programming and I like to experiment with different programming languages. I've made some projects and I will do many more. Some of them are listed below. Enjoy! </h4> 
+<h2>My Projects:</h2>
+
+  <div class="game-list">
+    <div class="game-card">
+      <a href="clicker-game/index.html">Clicker Game</a>
+    </div>
+    <div class="game-card">
+      <a href="Codriver/index.html">Codriver</a>
+    </div>
+    <div class="game-card">
+      <a href="budget-tracker/index.html">Budget Tracker</a>
+    </div>
+    <div class="game-card">
+      <a href="the-quiz/index.html">The Quiz</a>
+    </div>
+  </div>
+</body>
+</html>
