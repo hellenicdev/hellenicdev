@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Reservation</h1>
+
+        <!-- Restaurant Menu -->
+        <div id="restaurantMenu" class="menu">
+            <h2>Choose a Restaurant</h2>
+            <button class="restaurantButton" data-restaurant="Restaurant 1">Restaurant 1</button>
+            <button class="restaurantButton" data-restaurant="Restaurant 2">Restaurant 2</button>
+            <button class="restaurantButton" data-restaurant="Restaurant 3">Restaurant 3</button>
+            <button class="restaurantButton" data-restaurant="Restaurant 4">Restaurant 4</button>
+            <!-- Add more buttons as needed -->
+        </div>
+
+        <!-- Date and Time Picker -->
+        <div id="dateTimeSection" class="hidden">
+            <h2>Select a Date and Time</h2>
+            <input type="date" id="reservationDate" />
+            <input type="time" id="reservationTime" />
+            <!-- Enter Button to go to the next screen -->
+            <button id="enterButton" class="enterButton">Enter</button>
+        </div>
+
+        <!-- Reservation Info -->
+        <div id="reservationInfoSection" class="hidden">
+            <h2>Enter Your Reservation Details</h2>
+            <label for="reservationName">Name: </label>
+            <input type="text" id="reservationName" placeholder="Your Name" required />
+            <label for="reservationEmail">Email: </label>
+            <input type="email" id="reservationEmail" placeholder="Your Email" required />
+            <button id="submitReservation">Submit Reservation</button>
+        </div>
+
+        <!-- Confirmation Message -->
+        <div id="confirmationMessage" class="hidden">
+            <!-- Back Button -->
+            <button id="backButton" class="backButton">Back</button>
+            <h2>Reservation Confirmed!</h2>
+            <p id="confirmationDetails"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
