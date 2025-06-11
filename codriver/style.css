@@ -1,0 +1,96 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+.fullscreen-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.title {
+  color: blue;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.mic-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 10px;
+  display: none;
+}
+.chat-container {
+  width: 100%;
+  height: 80%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.message-area {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+.input-area button {
+  padding: 8px;
+  width: 80px;
+  height: 40px;
+  border: none;
+  background-color: #0078d7;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-area button:hover {
+  background-color: #005cbf;
+}
+.assistant-message-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-message {
+  background-color: #d1e7dd;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 16px;
+  color: #000;
+  text-align: right;
+}
+.assistant-message {
+  background-color: #e3f2fd;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 16px;
+  color: #000;
+}
