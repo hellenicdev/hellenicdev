@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sound Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>🔊 Sound Quiz</h1>
+  
+  <div id="quiz">
+    <button id="playButton" onclick="playSound()">Play Sound</button>
+
+    <div class="question" id="question" style="display:none;">
+      <p>What sound was that?</p>
+      <input type="text" id="userGuess" placeholder="Type your guess..." />
+      <button onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <div id="credits" style="display:none;">
+    <h2>🎉 Quiz Completed!</h2>
+    <h3>CREDITS:</h3>
+    <p>Sound 1: freesound_community</p>
+    <p>Sound 2: AstonMartinVantageV12</p>
+    <p>Sound 3: freesound_community</p>
+    <p>Sound 4: Rikeromega3 Productions</p>
+    <p>Sound 5: murzik.net</p>
+  </div>
+
+  <!-- Audio elements -->
+  <audio id="1" src="1.mp3"></audio>
+  <audio id="2" src="2.mp3"></audio>
+  <audio id="3" src="3.mp3"></audio>
+  <audio id="4" src="4.mp3"></audio>
+  <audio id="5" src="5.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
