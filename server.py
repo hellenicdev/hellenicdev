@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
+app = Flask(__name__)  # ✅ This must be exactly 'app'
 from dotenv import load_dotenv
 import os, requests
 from flask_cors import CORS
 CORS(app)
+
+
 
 load_dotenv()
 SECRET = os.getenv("RECAPTCHA_SECRET")
