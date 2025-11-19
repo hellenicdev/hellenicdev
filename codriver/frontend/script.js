@@ -8,7 +8,7 @@ function changeTheme() {
   localStorage.setItem("preferences", JSON.stringify(userPreferences));
 }
 // HUGGING FACE API
-const response = await fetch("http://127.0.0.1:8000/api/chat", {
+const response = await fetch("https://new-codriver.onrender.com", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ message: input })
