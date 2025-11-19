@@ -7,13 +7,6 @@ function changeTheme() {
   document.body.className = userPreferences.theme;
   localStorage.setItem("preferences", JSON.stringify(userPreferences));
 }
-// HUGGING FACE API
-const response = await fetch("https://new-codriver.onrender.com", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ message: input })
-});
-
 
 // DOM Elements
 const userInput = document.getElementById("userInput");
@@ -23,6 +16,7 @@ const micStatus = document.getElementById("micStatus");
 // Constants
 const WEATHER_API_KEY = "5b72dabcdd9d4b67a75170510250304";
 const NYT_API_KEY = "N8j8mb3TSiexCbefuDeT1Ap5MgKPGwmw";
+const BACKEND_URL = "https://new-codriver.onrender.com/api/chat"; // your Render backend
 
 let gameActive = false;
 let secretNumber = null;
@@ -105,10 +99,7 @@ function getRandomQuote() {
 
 function getRandomFunFact() {
   return [
-    "Honey never spoils!",
-    "Bananas are berries, but strawberries aren't!",
-    "Sharks existed before trees.",
-    "Octopuses have three hearts."
+    "Honey never spoils!","Bananas are berries, but strawberries aren't!","Sharks existed before trees.","Octopuses have three hearts."
   ][Math.floor(Math.random() * 4)];
 }
 
@@ -142,11 +133,15 @@ async function sendMessage() {
   const input = userInput.value.trim();
   if (!input) return;
 
+  // Show user's message
   const userMessage = document.createElement("p");
   userMessage.textContent = "You: " + input;
   userMessage.classList.add("user-message");
   messageArea.appendChild(userMessage);
 
+  let response = "";
+
+  // Handle games
   if (gameActive) {
     if (/exit game/i.test(input)) {
       gameActive = false;
@@ -168,39 +163,36 @@ async function sendMessage() {
     return;
   }
 
-  let response = "";
-
-  if (/hello|hi|hey|greetings/i.test(input)) {
-    response = "Hello! How can I assist you today?";
-  } else if (/quote/i.test(input)) {
-    response = getRandomQuote();
-  } else if (/weather/i.test(input)) {
+  // Local responses
+  if (/hello|hi|hey|greetings/i.test(input)) response = "Hello! How can I assist you today?";
+  else if (/quote/i.test(input)) response = getRandomQuote();
+  else if (/weather/i.test(input)) {
     const city = input.split(" ").pop();
     response = await fetchWeather(city);
-  } else if (/news/i.test(input)) {
-    response = await fetchNews();
-  } else if (/fun fact/i.test(input)) {
-    response = getRandomFunFact();
-  } else if (/joke/i.test(input)) {
-    response = getRandomJoke();
-  } else if (/riddle/i.test(input)) {
-    response = getRandomRiddle();
-  } else if (/time/i.test(input)) {
-    response = getCurrentTime();
-  } else if (/game/i.test(input)) {
+  }
+  else if (/news/i.test(input)) response = await fetchNews();
+  else if (/fun fact/i.test(input)) response = getRandomFunFact();
+  else if (/joke/i.test(input)) response = getRandomJoke();
+  else if (/riddle/i.test(input)) response = getRandomRiddle();
+  else if (/time/i.test(input)) response = getCurrentTime();
+  else if (/game/i.test(input)) {
     gameActive = true;
     secretNumber = Math.floor(Math.random() * 10) + 1;
     response = "Let's play a game! I'm thinking of a number between 1 and 10. What's your guess?";
-  } else if (/calculate|what'?s|what is|^[0-9+\-*/().\s]+$/i.test(input)) {
+  } 
+  else {
+    // Fallback: call backend for AI response
     try {
-      const expression = input.replace(/[^0-9+\-*/().]/g, "");
-      const result = Function("'use strict'; return (" + expression + ")")();
-      response = `The result is ${result}`;
+      const apiResponse = await fetch(BACKEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input })
+      });
+      const data = await apiResponse.json();
+      response = data.reply || "Sorry, I didn't understand that.";
     } catch {
-      response = "I couldn't calculate that. Please check your expression.";
+      response = "Sorry, I couldn't connect to the server.";
     }
-  } else {
-    response = "Sorry, I didn't understand that.";
   }
 
   addAssistantMessage(response);
