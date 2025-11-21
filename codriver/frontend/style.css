@@ -93,4 +93,36 @@ body {
   margin: 5px 0;
   font-size: 16px;
   color: #000;
+  line-height: 1.4;
+}
+
+/* Styling for rendered HTML inside messages */
+.assistant-message b, 
+.assistant-message strong {
+  font-weight: bold;
+}
+
+.assistant-message i, 
+.assistant-message em {
+  font-style: italic;
+}
+
+.assistant-message u {
+  text-decoration: underline;
+}
+
+.assistant-message a {
+  color: #0078d7;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.assistant-message ul, 
+.assistant-message ol {
+  padding-left: 20px;
+  margin: 5px 0;
+}
+
+.assistant-message li {
+  margin-bottom: 3px;
 }

@@ -54,7 +54,8 @@ function addAssistantMessage(response) {
   assistantContainer.classList.add("assistant-message-container");
 
   const assistantMessage = document.createElement("p");
-  assistantMessage.textContent = "Codriver: " + response;
+  // Use innerHTML so markup from the AI shows up
+  assistantMessage.innerHTML = "Codriver: " + response;
   assistantMessage.classList.add("assistant-message");
 
   const assistantSpeaker = document.createElement("button");
@@ -64,6 +65,7 @@ function addAssistantMessage(response) {
   assistantContainer.appendChild(assistantMessage);
   assistantContainer.appendChild(assistantSpeaker);
   messageArea.appendChild(assistantContainer);
+  messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 // External Fetches
@@ -81,7 +83,7 @@ async function fetchNews() {
   try {
     const response = await fetch(`https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${NYT_API_KEY}`);
     const data = await response.json();
-    return data.results.slice(0, 5).map(article => `• ${article.title}`).join("\n");
+    return data.results.slice(0, 5).map(article => `• ${article.title}`).join("<br>");
   } catch {
     return "Sorry, I couldn't fetch the top news.";
   }
@@ -197,5 +199,4 @@ async function sendMessage() {
 
   addAssistantMessage(response);
   userInput.value = "";
-  messageArea.scrollTop = messageArea.scrollHeight;
 }
