@@ -1,3 +1,5 @@
 flask
 requests
 pycountry
+python-dotenv
+gunicorn

@@ -1,11 +1,20 @@
 from flask import Flask, render_template, request
 import requests
 import pycountry
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 app = Flask(__name__)
 
-# ✅ Directly put your API key here (⚠️ not for public sharing)
-API_KEY = "b22be4aca453b5cb0870cc2f"
+# Get API key from .env
+API_KEY = os.getenv("API_KEY")
+
+if not API_KEY:
+    raise ValueError("API key not found. Make sure API_KEY is set in .env")
+
 API_URL = f"https://v6.exchangerate-api.com/v6/{API_KEY}/pair"
 
 # Get all ISO 4217 currencies (sorted)
