@@ -1,0 +1,199 @@
+/* ===== CSS RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* ===== PAGE BACKGROUND ===== */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+/* ===== MAIN CARD ===== */
+.container {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.8s ease;
+}
+
+/* ===== TITLE ===== */
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* ===== FORM ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ===== INPUTS & SELECTS ===== */
+input,
+select {
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+input:focus,
+select:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+/* ===== SELECT ROW ===== */
+.select-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-row span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ===== BUTTON ===== */
+button {
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #020617;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ===== RESULT ===== */
+.result {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.8);
+  border-left: 4px solid #38bdf8;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  animation: slideUp 0.4s ease;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== FLAG SELECT WRAPPER ===== */
+.flag-select {
+  position: relative;
+  width: 100%;
+}
+
+/* ===== FLAG ICON ===== */
+.flag-select::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 22px;
+  height: 16px;
+  background-size: cover;
+  background-position: center;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* ===== SELECT WITH FLAG SPACE ===== */
+.flag-select select {
+  padding-left: 46px;
+}
+
+/* ===== FLAGS (DEFAULT FALLBACK) ===== */
+.flag-us::before { background-image: url("https://flagcdn.com/w40/us.png"); }
+.flag-gb::before { background-image: url("https://flagcdn.com/w40/gb.png"); }
+.flag-eu::before { background-image: url("https://flagcdn.com/w40/eu.png"); }
+.flag-jp::before { background-image: url("https://flagcdn.com/w40/jp.png"); }
+.flag-ch::before { background-image: url("https://flagcdn.com/w40/ch.png"); }
+.flag-ca::before { background-image: url("https://flagcdn.com/w40/ca.png"); }
+.flag-au::before { background-image: url("https://flagcdn.com/w40/au.png"); }
+.flag-cn::before { background-image: url("https://flagcdn.com/w40/cn.png"); }
+.flag-in::before { background-image: url("https://flagcdn.com/w40/in.png"); }
+
+/* ===== GENERIC FALLBACK ===== */
+.flag-generic::before {
+  background-image: url("https://flagcdn.com/w40/un.png");
+}

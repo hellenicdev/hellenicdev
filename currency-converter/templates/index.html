@@ -1,33 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Currency Converter</title>
+  <meta charset="UTF-8">
+  <title>Currency Converter</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div class="container">
     <h1>Currency Converter</h1>
 
     <form action="/convert" method="post">
-        <input type="number" name="amount" step="0.01" placeholder="Enter amount" required>
 
-        <select name="from_currency" required>
+      <input
+        type="number"
+        name="amount"
+        step="0.01"
+        placeholder="Enter amount"
+        required
+      >
+
+      <div class="select-row">
+
+        <!-- FROM CURRENCY -->
+        <div class="flag-select flag-{{ from_currency_flag | default('generic') }}">
+          <select name="from_currency" required>
             {% for code, name in currencies %}
-                <option value="{{ code }}">{{ code }} - {{ name }}</option>
+              <option
+                value="{{ code }}"
+                {% if code == from_currency %}selected{% endif %}
+              >
+                {{ code }} - {{ name }}
+              </option>
             {% endfor %}
-        </select>
+          </select>
+        </div>
 
-        to
+        <span>to</span>
 
-        <select name="to_currency" required>
+        <!-- TO CURRENCY -->
+        <div class="flag-select flag-{{ to_currency_flag | default('generic') }}">
+          <select name="to_currency" required>
             {% for code, name in currencies %}
-                <option value="{{ code }}">{{ code }} - {{ name }}</option>
+              <option
+                value="{{ code }}"
+                {% if code == to_currency %}selected{% endif %}
+              >
+                {{ code }} - {{ name }}
+              </option>
             {% endfor %}
-        </select>
+          </select>
+        </div>
 
-        <button type="submit">Convert</button>
+      </div>
+
+      <button type="submit">Convert</button>
     </form>
 
     {% if result %}
-        <h2>{{ result }}</h2>
+      <div class="result">
+        {{ result }}
+      </div>
     {% endif %}
+
+    <div class="footer">
+      © HellenicDev · Powered by ExchangeRate-API
+    </div>
+  </div>
+
 </body>
 </html>
