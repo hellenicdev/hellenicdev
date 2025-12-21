@@ -1,132 +1,123 @@
-from flask import Flask, render_template, request
-import requests
+from flask import Flask, render_template, request, jsonify, make_response
+import requests, os, time
 import pycountry
-import os
+from collections import defaultdict
 from dotenv import load_dotenv
 
 load_dotenv()
-
 app = Flask(__name__)
 
-# =========================
-# API CONFIG
-# =========================
 API_KEY = os.getenv("API_KEY")
-if not API_KEY:
-    raise ValueError("API key not found")
-
 API_URL = f"https://v6.exchangerate-api.com/v6/{API_KEY}/pair"
 
-# =========================
-# CURRENCIES LIST
-# =========================
+# ======================
+# DATA
+# ======================
 CURRENCIES = sorted([
-    (c.alpha_3, c.name) for c in pycountry.currencies
-    if hasattr(c, 'alpha_3') and hasattr(c, 'name')
+    (c.alpha_3, c.name)
+    for c in pycountry.currencies
+    if hasattr(c, "alpha_3")
 ])
 
-# =========================
-# FLAG + COUNTRY MAPPINGS
-# =========================
 CURRENCY_TO_FLAG = {
-    "USD": "us",
-    "EUR": "eu",
-    "GBP": "gb",
-    "JPY": "jp",
-    "CHF": "ch",
-    "CAD": "ca",
-    "AUD": "au",
-    "CNY": "cn",
-    "INR": "in",
+    "USD": "us", "EUR": "eu", "GBP": "gb", "JPY": "jp",
+    "CHF": "ch", "CAD": "ca", "AUD": "au", "CNY": "cn", "INR": "in"
 }
 
-COUNTRY_TO_CURRENCY = {
-    "US": "USD",
-    "GB": "GBP",
-    "JP": "JPY",
-    "CH": "CHF",
-    "CA": "CAD",
-    "AU": "AUD",
-    "CN": "CNY",
-    "IN": "INR",
-}
-
-EU_COUNTRIES = {
+EU = {
     "GR","DE","FR","IT","ES","NL","BE","PT","AT","FI","IE",
     "CY","EE","LV","LT","LU","MT","SI","SK","HR"
 }
 
-# =========================
+# ======================
+# CACHE & RATE LIMIT
+# ======================
+RATE_CACHE = {}
+CACHE_TTL = 600  # 10 minutes
+
+REQUESTS = defaultdict(list)
+LIMIT = 30  # per IP / minute
+
+# ======================
 # HELPERS
-# =========================
-def detect_user_currency():
+# ======================
+def rate_limited(ip):
+    now = time.time()
+    REQUESTS[ip] = [t for t in REQUESTS[ip] if now - t < 60]
+    if len(REQUESTS[ip]) >= LIMIT:
+        return True
+    REQUESTS[ip].append(now)
+    return False
+
+def detect_currency():
     try:
-        response = requests.get(
-            "https://ipapi.co/json/",
-            timeout=3,
-            headers={"User-Agent": "CurrencyConverter"}
-        )
-        data = response.json()
-
-        country = data.get("country_code")
-
-        if country in EU_COUNTRIES:
+        data = requests.get("https://ipapi.co/json/", timeout=3).json()
+        cc = data.get("country_code")
+        if cc in EU:
             return "EUR"
-
-        return COUNTRY_TO_CURRENCY.get(country, "USD")
-
-    except Exception:
+        return data.get("currency", "USD")
+    except:
         return "USD"
 
-def currency_to_flag(currency):
-    return CURRENCY_TO_FLAG.get(currency, "generic")
+def get_rate(frm, to):
+    key = (frm, to)
+    now = time.time()
 
-# =========================
+    if key in RATE_CACHE and now - RATE_CACHE[key]["time"] < CACHE_TTL:
+        return RATE_CACHE[key]["rate"]
+
+    r = requests.get(f"{API_URL}/{frm}/{to}", timeout=5).json()
+    if r.get("result") != "success":
+        raise ValueError("API error")
+
+    RATE_CACHE[key] = {
+        "rate": r["conversion_rate"],
+        "time": now
+    }
+    return r["conversion_rate"]
+
+# ======================
 # ROUTES
-# =========================
-@app.route('/')
+# ======================
+@app.route("/")
 def index():
-    user_currency = detect_user_currency()
+    from_cur = request.cookies.get("from") or detect_currency()
+    to_cur = request.cookies.get("to") or ("USD" if from_cur == "EUR" else "EUR")
 
     return render_template(
         "index.html",
         currencies=CURRENCIES,
-        from_currency=user_currency,
-        to_currency="EUR" if user_currency != "EUR" else "USD",
-        from_currency_flag=currency_to_flag(user_currency),
-        to_currency_flag=currency_to_flag(
-            "EUR" if user_currency != "EUR" else "USD"
-        )
+        from_currency=from_cur,
+        to_currency=to_cur,
+        from_flag=CURRENCY_TO_FLAG.get(from_cur, "generic"),
+        to_flag=CURRENCY_TO_FLAG.get(to_cur, "generic")
     )
 
-@app.route('/convert', methods=['POST'])
+@app.route("/convert", methods=["POST"])
 def convert():
-    try:
-        amount = float(request.form['amount'])
-        from_currency = request.form['from_currency']
-        to_currency = request.form['to_currency']
+    ip = request.remote_addr
+    if rate_limited(ip):
+        return jsonify({"error": "Too many requests"}), 429
 
-        response = requests.get(
-            f"{API_URL}/{from_currency}/{to_currency}",
-            timeout=5
-        )
-        data = response.json()
+    data = request.json
+    amount = float(data["amount"])
+    frm = data["from"]
+    to = data["to"]
 
-        if data.get('result') == 'success':
-            converted = round(amount * data['conversion_rate'], 2)
-            result = f"{amount} {from_currency} = {converted} {to_currency}"
-        else:
-            result = "Conversion failed."
+    rate = get_rate(frm, to)
+    result = round(amount * rate, 2)
 
-    except Exception as e:
-        result = f"Error: {e}"
+    resp = make_response(jsonify({
+        "result": result,
+        "rate": rate,
+        "from_flag": CURRENCY_TO_FLAG.get(frm, "generic"),
+        "to_flag": CURRENCY_TO_FLAG.get(to, "generic")
+    }))
 
-    return render_template(
-        "index.html",
-        currencies=CURRENCIES,
-        result=result,
-        from_currency=from_currency,
-        to_currency=to_currency,
-        from_currency_flag=currency_to_flag(from_currency),
-        to_currency_flag=currency_to_flag(to_currency)
-    )
+    resp.set_cookie("from", frm, max_age=86400 * 30)
+    resp.set_cookie("to", to, max_age=86400 * 30)
+    return resp
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"})

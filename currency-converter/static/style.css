@@ -1,0 +1,73 @@
+body {
+  background: linear-gradient(135deg,#020617,#0f172a);
+  font-family: system-ui;
+  color: #e5e7eb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container {
+  background:#020617cc;
+  padding:2rem;
+  border-radius:16px;
+  width:380px;
+  box-shadow:0 20px 50px #000;
+}
+
+h1 { text-align:center; margin-bottom:1rem; }
+
+input, select, button {
+  width:100%;
+  padding:0.7rem;
+  border-radius:10px;
+  background:#020617;
+  color:#e5e7eb;
+  border:1px solid #1e293b;
+}
+
+.row {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  margin:1rem 0;
+}
+
+button {
+  background:linear-gradient(135deg,#38bdf8,#2563eb);
+  border:none;
+  cursor:pointer;
+}
+
+#swap {
+  width:42px;
+  font-size:1.2rem;
+}
+
+.flag {
+  position:relative;
+  flex:1;
+}
+
+.flag::before {
+  content:"";
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:20px;
+  height:14px;
+  background-size:cover;
+}
+
+.flag select { padding-left:40px; }
+
+.flag-us::before{background-image:url("https://flagcdn.com/w40/us.png")}
+.flag-eu::before{background-image:url("https://flagcdn.com/w40/eu.png")}
+.flag-gb::before{background-image:url("https://flagcdn.com/w40/gb.png")}
+.flag-jp::before{background-image:url("https://flagcdn.com/w40/jp.png")}
+.flag-generic::before{background-image:url("https://flagcdn.com/w40/un.png")}
+
+#result,#rate { text-align:center; margin-top:1rem; }
+footer { text-align:center; font-size:.7rem; opacity:.6; margin-top:1rem; }
