@@ -4,10 +4,55 @@
 	<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="06e4a97f-2c34-41ed-8ab6-d53b581ff080" type="text/javascript" async></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
 <img src="logo.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 10px;">
 
-
   <title>HellenicDev</title>
+  
+  <div class="new-year-banner">
+  <h2>🎉 Happy New Year 2026!</h2>
+  <p>
+    May your new year be blessed with happy feelings and
+    memories full of joy!
+  </p>
+</div>
+
+<!-- LAST UPDATED CHECK SCRIPT -->
+<script>
+(async function () {
+  const el = document.getElementById("last-updated");
+  if (!el) return;
+
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/hellenicdev/hellenicdev/commits?per_page=1"
+    );
+
+    const data = await response.json();
+    const lastCommitDate = new Date(data[0].commit.committer.date);
+    const now = new Date();
+
+    const diffDays = Math.floor(
+      (now - lastCommitDate) / (1000 * 60 * 60 * 24)
+    );
+
+    let text;
+    if (diffDays === 0) {
+      text = "Updated today";
+    } else if (diffDays === 1) {
+      text = "Updated yesterday";
+    } else {
+      text = `Updated ${diffDays} days ago`;
+    }
+
+    el.innerHTML = `🕒 <span>${text}</span>`;
+  } catch (err) {
+    el.textContent = "";
+  }
+})();
+</script>
+<!-- SCRIPT END -->
+
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
@@ -53,48 +98,72 @@
       <a href="./codriver/frontend/index.html">
         <h3>Codriver</h3>
         <p>An AI-powered assistant. It has games, jokes, riddles, and more.</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./clicker-game/index.html">
         <h3>Clicker Game</h3>
         <p>A simple incremental game where every click counts. Watch your score rise!</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./budget-tracker/index.html">
         <h3>Budget Tracker</h3>
         <p>Track your income and expenses with ease. Great for personal finance planning (data saved locally).</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./the-quiz/index.html">
         <h3>The Quiz</h3>
         <p>Test your knowledge in various subjects. Fun and educational quiz app!</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./e-table/index.html">
         <h3>E-table</h3>
         <p>A mock app. Supposed to be a platform where you can reserve a table at a restaurant.</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./dodge-and-survive/index.html">
         <h3>Dodge & Survive</h3>
         <p>A fast-paced arcade game where you dodge enemies and try to survive as long as possible.</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
     <div class="game-card">
       <a href="./the-sound-quiz/index.html">
         <h3>The Sound Quiz</h3>
         <p>A simple quiz. You hear sounds and you have to guess them.</p>
+		<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
       </a>
     </div>
 	<div class="game-card">
   <a href="https://currency-converter-7fmk.onrender.com">
     <h3>Currency Converter</h3>
     <p>A currency converter with all major currencies.</p>
+	<p id="last-updated" class="last-updated">
+  Checking last update…
+</p>
   </a>
 </div>
   </div>

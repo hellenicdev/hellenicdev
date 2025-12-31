@@ -86,3 +86,43 @@ iframe {
   display: block;
 }
 
+.new-year-banner {
+  max-width: 900px;
+  margin: 2.5rem auto 3.5rem;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(25, 51, 110, 0.25),
+    rgba(25, 51, 110, 0.05)
+  );
+  border: 1px solid rgba(25, 51, 110, 0.6);
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.new-year-banner h2 {
+  margin: 0 0 0.8rem;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.new-year-banner p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #dbe4ff;
+  line-height: 1.6;
+}
+
+.last-updated {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #b6c2e2;
+  text-align: center;
+}
+
+.last-updated span {
+  color: #19336e;
+  font-weight: 600;
+}
