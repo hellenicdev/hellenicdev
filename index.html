@@ -17,41 +17,10 @@
   </p>
 </div>
 
-<!-- LAST UPDATED CHECK SCRIPT -->
-<script>
-(async function () {
-  const el = document.getElementById("last-updated");
-  if (!el) return;
+<script src="https://cdn.logwork.com/widget/countdown.js"></script>
+<a href="https://logwork.com/countdown-timer" class="countdown-timer" data-timezone="Europe/Athens" data-textcolor="#ffffff" data-date="2026-03-28 00:00" data-background="#19336e" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Days until anniversary</a>
 
-  try {
-    const response = await fetch(
-      "https://api.github.com/repos/hellenicdev/hellenicdev/commits?per_page=1"
-    );
-
-    const data = await response.json();
-    const lastCommitDate = new Date(data[0].commit.committer.date);
-    const now = new Date();
-
-    const diffDays = Math.floor(
-      (now - lastCommitDate) / (1000 * 60 * 60 * 24)
-    );
-
-    let text;
-    if (diffDays === 0) {
-      text = "Updated today";
-    } else if (diffDays === 1) {
-      text = "Updated yesterday";
-    } else {
-      text = `Updated ${diffDays} days ago`;
-    }
-
-    el.innerHTML = `🕒 <span>${text}</span>`;
-  } catch (err) {
-    el.textContent = "";
-  }
-})();
-</script>
-<!-- SCRIPT END -->
+<!-- THE LAST UPDATED SCRIPT WAS HERE -->
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -98,8 +67,8 @@
       <a href="./codriver/frontend/index.html">
         <h3>Codriver</h3>
         <p>An AI-powered assistant. It has games, jokes, riddles, and more.</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="codriver/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -107,17 +76,17 @@
       <a href="./clicker-game/index.html">
         <h3>Clicker Game</h3>
         <p>A simple incremental game where every click counts. Watch your score rise!</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="clicker-game/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
     <div class="game-card">
       <a href="./budget-tracker/index.html">
         <h3>Budget Tracker</h3>
-        <p>Track your income and expenses with ease. Great for personal finance planning (data saved locally).</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+        <p>Track your income and expenses with ease. Great for personal finance planning (data saved in browser cookies).</p>
+		<p class="last-updated" data-meta="budget-tracker/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -125,8 +94,8 @@
       <a href="./the-quiz/index.html">
         <h3>The Quiz</h3>
         <p>Test your knowledge in various subjects. Fun and educational quiz app!</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="the-quiz/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -134,8 +103,8 @@
       <a href="./e-table/index.html">
         <h3>E-table</h3>
         <p>A mock app. Supposed to be a platform where you can reserve a table at a restaurant.</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="e-table/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -143,8 +112,8 @@
       <a href="./dodge-and-survive/index.html">
         <h3>Dodge & Survive</h3>
         <p>A fast-paced arcade game where you dodge enemies and try to survive as long as possible.</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="dodge-and-survive/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -152,8 +121,8 @@
       <a href="./the-sound-quiz/index.html">
         <h3>The Sound Quiz</h3>
         <p>A simple quiz. You hear sounds and you have to guess them.</p>
-		<p id="last-updated" class="last-updated">
-  Checking last update…
+		<p class="last-updated" data-meta="the-sound-quiz/meta.json">
+  Checking last update...
 </p>
       </a>
     </div>
@@ -161,8 +130,8 @@
   <a href="https://currency-converter-7fmk.onrender.com">
     <h3>Currency Converter</h3>
     <p>A currency converter with all major currencies.</p>
-	<p id="last-updated" class="last-updated">
-  Checking last update…
+	<p class="last-updated" data-meta="currency-converter/meta.json">
+  Checking last update...
 </p>
   </a>
 </div>
@@ -1181,6 +1150,42 @@ For one day, I let server members: <br>
 <!-- END OF UPDATES -->
 </footer>
 	<a href="privacy-policy.html">Privacy Policy</a>
+	
+	<!-- LAST UPDATED CHECK SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const items = document.querySelectorAll(".last-updated");
+
+  for (const el of items) {
+    const path = el.dataset.meta;
+    if (!path) continue;
+
+    try {
+      const res = await fetch(path, { cache: "no-store" });
+      if (!res.ok) throw new Error();
+
+      const data = await res.json();
+      const last = new Date(data.lastUpdated);
+      const days = Math.floor(
+        (Date.now() - last) / (1000 * 60 * 60 * 24)
+      );
+
+      const text =
+        days === 0
+          ? "Updated today"
+          : days === 1
+          ? "Updated yesterday"
+          : `Updated ${days} days ago`;
+
+      el.textContent = `🕒 ${text}`;
+    } catch {
+      el.textContent = "";
+    }
+  }
+});
+</script>
+
+<!-- SCRIPT END -->
 
 </body>
 </html>
