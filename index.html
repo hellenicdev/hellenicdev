@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9FWQFZME3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9FWQFZME3Z');
+</script>
+
 	<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="06e4a97f-2c34-41ed-8ab6-d53b581ff080" type="text/javascript" async></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,6 +28,22 @@
   </p>
 </div>
 
+<!-- UTM SOURCE DETECT SCRIPT -->
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const utmSource = params.get('utm_source');
+  const utmMedium = params.get('utm_medium');
+  const utmCampaign = params.get('utm_campaign');
+
+  if (utmSource) {
+    console.log('UTM Source:', utmSource);
+  }
+ </script>
+ <script>
+ document.cookie = `utm_source=${utmSource}; path=/; max-age=2592000`; // 30 days
+</script>
+<!-- SCRIPT END-->
 <script src="https://cdn.logwork.com/widget/countdown.js"></script>
 <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-timezone="Europe/Athens" data-textcolor="#ffffff" data-date="2026-03-28 00:00" data-background="#19336e" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Days until anniversary</a>
 
@@ -40,13 +67,6 @@
 
 </head>
 
-<!-- Google tag -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9FWQFZME3Z"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-9FWQFZME3Z');
 </script>
 
 <body>
