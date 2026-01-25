@@ -16,7 +16,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
-<img src="logo.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 10px;">
+<!-- <img src="logo.png" alt="Logo" style="width: 200px; height: 200px; border-radius: 10px;"> -->
+<img 
+  src="logo.png" 
+  alt="HellenicDev Logo" 
+  class="logo"  
+  onclick="showThankYou()" 
+  style="cursor: pointer;"
+>
+
+
+<!-- ANNIVERSARY -->
+<p id="hidden-thanks" style="display:none; font-size:22px; text-align:center; margin-top:40px;">
+  Thank you for supporting HellenicDev 💙
+</p>
+
+<!--<div id="plane-container">
+  <img src="plane.png" alt="Plane" id="plane">
+  <div id="plane-message">1 YEAR HELLENICDEV</div>
+</div> -->
+
 
   <title>HellenicDev</title>
   
@@ -44,6 +63,7 @@
  document.cookie = `utm_source=${utmSource}; path=/; max-age=2592000`; // 30 days
 </script>
 <!-- SCRIPT END-->
+
 <script src="https://cdn.logwork.com/widget/countdown.js"></script>
 <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-timezone="Europe/Athens" data-textcolor="#ffffff" data-date="2026-03-28 00:00" data-background="#19336e" data-digitscolor="#ffffff" data-unitscolor="#ffffff">Days until anniversary</a>
 
@@ -69,7 +89,6 @@
 
 </script>
 
-<body>
   <!-- IMPORTANT!!! ANNIVERSARY VIDEO::
   <video width="640" height="360" controls>
     <source src="video.mp4" type="video/mp4" />
@@ -79,13 +98,15 @@
 
   <h1>HellenicDev</h1>
   <h4>Hello! My name is Panos, AKA HellenicDev. I'm passionate about programming and love exploring different languages and technologies. I've created several projects so far—and many more are on the way! You can find a few of them listed below. Enjoy!</h4>
-
+  <h4> Thank you for being part of HellenicDev.
+What started as a personal passion for programming has grown into something bigger thanks to everyone who visits, explores, and supports this journey.
+Here’s to learning, building, and innovating — together. 🚀</h4>
   <h2>My Projects:</h2>
 
   <div class="game-list">
     <div class="game-card">
       <a href="./codriver/frontend/index.html">
-        <h3>Codriver</h3>
+        <h3>⭐ Featured • Codriver</h3>
         <p>An AI-powered assistant. It has games, jokes, riddles, and more.</p>
 		<p class="last-updated" data-meta="codriver/meta.json">
   Checking last update...
@@ -157,6 +178,15 @@
 </div>
   </div>
   </div>
+<section class="coming-next">
+  <h2>What’s Coming Next</h2>
+  <ul>
+    <li>🚀 New interactive projects & experiments</li>
+    <li>🎨 UI and performance improvements</li>
+    <li>🛠️ More developer tools</li>
+    <li>💡 Community-driven ideas</li>
+  </ul>
+</section>
 
   <!-- reCAPTCHA-Protected Google Form -->
   
@@ -1206,6 +1236,43 @@ document.addEventListener("DOMContentLoaded", async () => {
 </script>
 
 <!-- SCRIPT END -->
+<!-- ANNIVERSARY -->
+<script>
+  (function () {
+    let typed = "";
+    const secret = "HELLENICDEV";
+    const message = document.getElementById("hidden-thanks");
+    let triggered = false;
+
+    document.addEventListener("keydown", (e) => {
+      if (triggered) return;
+
+      // Ignore non-character keys
+      if (e.key.length !== 1) return;
+
+      typed += e.key.toUpperCase();
+      typed = typed.slice(-secret.length);
+
+      if (typed === secret) {
+        message.style.display = "block";
+        triggered = true;
+      }
+    });
+  })();
+</script>
+
+<script>
+  function showThankYou() {
+    const msg = document.getElementById("hidden-thanks");
+    msg.style.display = "block";
+  }
+</script>
+
+
+
+
+
+
 
 </body>
 </html>

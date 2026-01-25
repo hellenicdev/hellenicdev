@@ -126,3 +126,55 @@ iframe {
   color: #19336e;
   font-weight: 600;
 }
+
+.coming-next {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.coming-next ul {
+  list-style: none;
+  padding: 0;
+}
+
+.coming-next li {
+  margin: 0.5rem 0;
+  color: #ccc;
+}
+
+/* #plane-container {
+  position: fixed;
+  top: 20%;
+  left: -300px;  start off-screen 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fly-across 10s linear infinite;
+  z-index: 9999;
+}
+
+#plane {
+  width: 80px;
+}
+
+#plane-message {
+  background: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-family: sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+@keyframes fly-across {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100vw + 600px));
+  }
+}
+*/
+
+/* !!! ANNIVERSARY STYLE */
